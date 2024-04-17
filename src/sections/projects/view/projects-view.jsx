@@ -37,24 +37,25 @@ export default function ProjectsView() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (!formData.title) {
+    if (!formData) {
       alert("please enter the title..")
     }
+    else{
+      const title = formData.title
+      const {data, error} = await supabase
+        .from('Projects')
+        .insert([{title}])
+        .select()
 
-    const title = formData.title
-    const {data, error} = await supabase
-      .from('Projects')
-      .insert([{title}])
-      .select()
+      if(error) {
+        alert(error)
+      }
+      if(data) {
+        setFormData(null)
+        handleClose();
+        fetchProjects();
 
-    if(error) {
-      alert(error)
-    }
-    if(data) {
-      console.log(data)
-      handleClose();
-      fetchProjects();
-
+      }
     }
   }
 
