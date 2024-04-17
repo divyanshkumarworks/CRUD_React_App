@@ -59,20 +59,28 @@ export default function NewUserPopover ({
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const {data, error} = await supabase
-        .from('Employees')
-        .insert({name: formData.name, project_id: (selectedProject)? selectedProject.id: null})
-        .select()
-    
-        if(error) {
-        alert(error)
+        if (formData.name === '') {
+          alert('please enter employee name..')
         }
-        if(data) {
-          console.log("asdasd", data)
-          setSelectedProject(null)  
-          setFormData(null)
-          handleClose();
-          fetchEmployees();
+        else if (!selectedProject) {
+          alert('select a project..')
+
+        }
+        else {
+          const {data, error} = await supabase
+          .from('Employees')
+          .insert({name: formData.name, project_id: (selectedProject)? selectedProject.id: null})
+          .select()
+      
+          if(error) {
+          alert(error)
+          }
+          if(data) {
+            setSelectedProject(null)  
+            setFormData(null)
+            handleClose();
+            fetchEmployees();
+          }
         }
     }
 
