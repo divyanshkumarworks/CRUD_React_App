@@ -158,7 +158,7 @@ export default function EmployeePage() {
         <Typography variant="h4">Employees</Typography>
 
         <Button variant="contained" color="inherit" onClick={handleOpen} startIcon={<Iconify icon="eva:plus-fill" />}>
-          New User
+          New Employee
         </Button>
       </Stack>
 
