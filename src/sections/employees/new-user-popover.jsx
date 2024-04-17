@@ -117,7 +117,7 @@ export default function NewUserPopover ({
             type="submit"
             variant="contained"
             >
-            create project
+            create employee
             </LoadingButton>
         </Container>
         </form>
