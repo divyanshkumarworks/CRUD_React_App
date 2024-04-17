@@ -31,22 +31,24 @@ export default function UserTableRow({
     setOpen(event.currentTarget);
   };
 
+  const handleDelete = async () => {
+    const {data, error} = await supabase
+      .from('Employees')
+      .delete()
+      .eq('id', project_id)
+
+    if (error) {
+      alert(error)
+    }
+
+    if (data) {
+      console.log(data)
+      handleCloseMenu();
+    }
+  }
 
   const handleCloseMenu = async () => {
     setOpen(null);
-    const {data, error} = await supabase
-        .from('Employees')
-        .delete()
-        .eq('id', project_id)
-  
-      if (error) {
-        alert(error)
-      }
-  
-      if (data) {
-        console.log(data)
-        handleCloseMenu();
-      }
   };
 
   return (
@@ -84,7 +86,7 @@ export default function UserTableRow({
           sx: { width: 140 },
         }}
       >
-        <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
+        <MenuItem onClick={handleDelete} sx={{ color: 'error.main' }}>
           <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
           Delete
         </MenuItem>
